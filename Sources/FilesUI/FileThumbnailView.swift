@@ -33,6 +33,10 @@ public struct FileThumbnail: View {
     
     @Binding public var url: URL?
     
+    public init(url: Binding<URL?>) {
+        self._url = url
+    }
+    
     @StateObject private var generator = ThumbnailGenerator()
     
     public var body: some View {

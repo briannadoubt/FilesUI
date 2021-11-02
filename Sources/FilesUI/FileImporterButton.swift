@@ -13,6 +13,11 @@ public struct FileImporterButton: View {
     public var types: [UTType]
     public var url: (_ url: URL) -> ()
     
+    public init(_ allowedTypes: [UTType], url: @escaping (_ url: URL) -> ()) {
+        self.types = allowedTypes
+        self.url = url
+    }
+    
     @State private var showingFileImporter = false
     @State private var hovored: Bool = false
     
@@ -69,6 +74,6 @@ public struct FileImporterButton: View {
 
 struct FileImporterButton_Previews: PreviewProvider {
     static var previews: some View {
-        FileImporterButton(types: [.fileURL], url: { url in print(url) })
+        FileImporterButton([.fileURL], url: { url in print(url) })
     }
 }

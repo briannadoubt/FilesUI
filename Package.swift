@@ -3,22 +3,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "FileUI",
+    name: "FilesUI",
     platforms: [.iOS(.v14), .macOS(.v10_15), .tvOS(.v14), .watchOS(.v7)],
     products: [
         .library(
-            name: "FileUI",
-            targets: ["FileUI"]),
+            name: "FilesUI",
+            targets: ["FilesUI"]),
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "FileUI",
+            name: "FilesUI",
             dependencies: [],
             linkerSettings: [.linkedFramework("SwiftUI")]
         ),
         .testTarget(
-            name: "FileUITests",
-            dependencies: ["FileUI"]),
+            name: "FilesUITests",
+            dependencies: ["FilesUI"]),
     ]
 )

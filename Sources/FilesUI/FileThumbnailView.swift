@@ -8,11 +8,11 @@
 import SwiftUI
 import QuickLookThumbnailing
 
-class ThumbnailGenerator: ObservableObject {
+public class ThumbnailGenerator: ObservableObject {
     
-    @Published var image: UIImage?
+    @Published public var image: UIImage?
     
-    func generate(fileAt url: URL) {
+    public func generate(fileAt url: URL) {
         let thumbnailRequest = QLThumbnailGenerator.Request(fileAt: url, size: CGSize(width: 150, height: 150), scale: 3, representationTypes: .all)
         QLThumbnailGenerator.shared.generateBestRepresentation(for: thumbnailRequest) { thumbnail, error in
             if let error = error {
@@ -29,13 +29,13 @@ class ThumbnailGenerator: ObservableObject {
     }
 }
 
-struct FileThumbnail: View {
+public struct FileThumbnail: View {
     
-    @Binding var url: URL?
+    @Binding public var url: URL?
     
-    @StateObject var generator = ThumbnailGenerator()
+    @StateObject private var generator = ThumbnailGenerator()
     
-    var body: some View {
+    public var body: some View {
         Group {
             if let image = generator.image {
                 Image(uiImage: image)

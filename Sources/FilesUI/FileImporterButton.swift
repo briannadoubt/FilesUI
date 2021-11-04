@@ -21,6 +21,22 @@ public struct FileImporterButton: View {
     @State private var showingFileImporter = false
     @State private var hovored: Bool = false
     
+    var actionText: String {
+        #if os(iOS)
+        "Tap"
+        #elseif os(macOS)
+        "Click"
+        #endif
+    }
+    
+    var actionImage: String {
+        #if os(iOS)
+        "hand.tap"
+        #elseif os(macOS)
+        "cursorarrow.click"
+        #endif
+    }
+    
     public var body: some View {
         Button(
             action: { showingFileImporter.toggle() },
@@ -32,7 +48,7 @@ public struct FileImporterButton: View {
                         .transition(.opacity)
 
                     VStack {
-                        Text("Drop \(Image(systemName: "arrow.uturn.down")) / Tap \(Image(systemName: "hand.tap"))")
+                        Text("Drop \(Image(systemName: "arrow.uturn.down")) / \(actionText) \(Image(systemName: actionImage))")
                             .bold()
                             .foregroundColor(hovored ? .white : Color("AccentColor"))
                             .lineLimit(nil)

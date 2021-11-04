@@ -27,14 +27,14 @@ public struct FileImporterButton: View {
             label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(hovored ? Color.orange : Color.clear)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(hovored ? Color.white : Color.orange, lineWidth: 3))
+                        .fill(hovored ? Color("AccentColor") : Color.clear)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(hovored ? Color.white : Color("AccentColor"), lineWidth: 3))
                         .transition(.opacity)
 
                     VStack {
                         Text("Drop \(Image(systemName: "arrow.uturn.down")) / Tap \(Image(systemName: "hand.tap"))")
                             .bold()
-                            .foregroundColor(hovored ? .white : .orange)
+                            .foregroundColor(hovored ? .white : Color("AccentColor"))
                             .lineLimit(nil)
                     }
                     .font(.largeTitle)

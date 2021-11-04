@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "FilesUI",
-    platforms: [.iOS(.v14), .macOS(.v10_15), .tvOS(.v14), .watchOS(.v7)],
+    platforms: [.iOS(.v14), .macOS(.v11), .tvOS(.v14), .watchOS(.v7)],
     products: [
         .library(
             name: "FilesUI",

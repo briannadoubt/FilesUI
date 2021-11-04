@@ -10,7 +10,11 @@ import QuickLookThumbnailing
 
 public class ThumbnailGenerator: ObservableObject {
     
+    #if os(iOS)
     @Published public var image: UIImage?
+    #elseif os(macOS)
+    @Published public var image: NSImage?
+    #endif
     
     public func generate(fileAt url: URL) {
         let thumbnailRequest = QLThumbnailGenerator.Request(fileAt: url, size: CGSize(width: 150, height: 150), scale: 3, representationTypes: .all)
@@ -21,7 +25,11 @@ public class ThumbnailGenerator: ObservableObject {
             if let thumbnail = thumbnail {
                 DispatchQueue.main.async {
                     withAnimation {
+                        #if os(iOS)
                         self.image = thumbnail.uiImage
+                        #elseif os(macOS)
+                        self.image = thumbnail.nsImage
+                        #endif
                     }
                 }
             }
@@ -42,10 +50,17 @@ public struct FileThumbnail: View {
     public var body: some View {
         Group {
             if let image = generator.image {
+                #if os(iOS)
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(10)
+                #elseif os(macOS)
+                Image(nsImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+                #endif
             } else {
                 Image(systemName: "film")
                     .resizable()

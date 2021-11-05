@@ -11,11 +11,11 @@ import UniformTypeIdentifiers
 public struct FileImporterButton: View {
     
     public var types: [UTType]
-    public var url: (_ url: URL) -> ()
+    public var inputFile: (_ url: URL) -> ()
     
-    public init(_ allowedTypes: [UTType], url: @escaping (_ url: URL) -> ()) {
+    public init(_ allowedTypes: [UTType], inputFile: @escaping (_ url: URL) -> ()) {
         self.types = allowedTypes
-        self.url = url
+        self.inputFile = inputFile
     }
     
     @State private var showingFileImporter = false
@@ -63,7 +63,7 @@ public struct FileImporterButton: View {
             do {
                 let newUrl = try result.get()
                 withAnimation {
-                    url(newUrl)
+                    inputFile(newUrl)
                 }
             } catch {
                 fatalError(error.localizedDescription)
@@ -78,7 +78,7 @@ public struct FileImporterButton: View {
                     }
                     if let newUrl = newUrl {
                         withAnimation {
-                            url(newUrl)
+                            inputFile(newUrl)
                         }
                     }
                 }
@@ -90,6 +90,6 @@ public struct FileImporterButton: View {
 
 struct FileImporterButton_Previews: PreviewProvider {
     static var previews: some View {
-        FileImporterButton([.fileURL], url: { url in print(url) })
+        FileImporterButton([.fileURL], inputFile: { url in print(url) })
     }
 }

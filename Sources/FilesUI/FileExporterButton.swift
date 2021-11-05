@@ -41,6 +41,7 @@ public struct FileExporterButton: View {
                 let newUrl = try result.get()
                 try withAnimation {
                     output = try newUrl.bookmarkData(options: .withSecurityScope)
+                    try URL.writeBookmarkData(output, to: newUrl)
                     self.outputDirectory = newUrl
                 }
             } catch {

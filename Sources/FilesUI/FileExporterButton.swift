@@ -12,6 +12,8 @@ public struct FileExporterButton: View {
     
     @Binding public var outputDirectory: URL?
     
+    @State var stale = false
+    
     public init(outputDirectory: Binding<URL?>) {
         self._outputDirectory = outputDirectory
     }
@@ -41,8 +43,7 @@ public struct FileExporterButton: View {
                 let newUrl = try result.get()
                 try withAnimation {
                     output = try newUrl.bookmarkData(options: .withSecurityScope)
-                    try URL.writeBookmarkData(output, to: newUrl)
-                    self.outputDirectory = newUrl
+                    self.outputDirectory = try URL(resolvingBookmarkData: output, options: .withSecurityScope, bookmarkDataIsStale: &stale)
                 }
             } catch {
                 fatalError(error.localizedDescription)

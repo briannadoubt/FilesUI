@@ -10,13 +10,14 @@ import UniformTypeIdentifiers
 
 public struct FileExporterButton: View {
     
-    @Binding public var outputFile: URL?
+    @Binding public var outputDirectory: URL?
     
-    public init(outputFile: Binding<URL?>) {
-        self._outputFile = outputFile
+    public init(outputDirectory: Binding<URL?>) {
+        self._outputDirectory = outputDirectory
     }
     
     @State private var showingFileExporter = false
+    @AppStorage("outputDirectory") private var output: Data = Data()
     
     public var body: some View {
         Button(
@@ -24,7 +25,7 @@ public struct FileExporterButton: View {
             label: {
                 let rightArrow = Image(systemName: "arrow.right")
                 HStack {
-                    Text(outputFile?.deletingLastPathComponent().absoluteString.replacingOccurrences(of: "/", with: " \(rightArrow) ") ?? "iCloud Drive \(rightArrow) \(Bundle.main.bundleIdentifier ?? "Converted Videos")")
+                    Text(outputDirectory?.absoluteString.replacingOccurrences(of: "/", with: " \(rightArrow) ") ?? "iCloud Drive \(rightArrow) \(Bundle.main.bundleIdentifier ?? "Converted Videos")")
                         .bold()
                         .foregroundColor(Color("AccentColor"))
                         .lineLimit(nil)
@@ -38,8 +39,9 @@ public struct FileExporterButton: View {
         .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.directory]) { result in
             do {
                 let newUrl = try result.get()
-                withAnimation {
-                    self.outputFile = newUrl
+                try withAnimation {
+                    output = try newUrl.bookmarkData(options: .withSecurityScope)
+                    self.outputDirectory = newUrl
                 }
             } catch {
                 fatalError(error.localizedDescription)
@@ -50,6 +52,6 @@ public struct FileExporterButton: View {
 
 struct FileExporterButton_Previews: PreviewProvider {
     static var previews: some View {
-        FileExporterButton(outputFile: .constant(URL(fileURLWithPath: "files:///Users/bri/dev/")))
+        FileExporterButton(outputDirectory: .constant(URL(fileURLWithPath: "files:///Users/bri/dev/")))
     }
 }

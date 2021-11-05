@@ -8,7 +8,7 @@ final class FileExporterButtonTests: XCTestCase {
     @State var url: URL?
     
     func test_buttonIsInitialized() throws {
-        let button = FileExporterButton(outputFile: $url)
-        XCTAssertEqual(url, button.outputFile)
+        let button = FileExporterButton(outputDirectory: $url)
+        XCTAssertEqual(url, button.outputDirectory)
     }
 }

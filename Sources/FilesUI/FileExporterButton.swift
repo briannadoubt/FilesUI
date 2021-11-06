@@ -25,9 +25,8 @@ public struct FileExporterButton: View {
         Button(
             action: { showingFileExporter.toggle() },
             label: {
-                let rightArrow = Image(systemName: "arrow.right")
                 HStack {
-                    Text(outputDirectory?.absoluteString.replacingOccurrences(of: "/", with: " \(rightArrow) ") ?? "iCloud Drive \(rightArrow) \(Bundle.main.bundleIdentifier ?? "Converted Videos")")
+                    Text(outputDirectory?.absoluteString.replacingOccurrences(of: "/", with: " \(Image(systemName: "arrow.right")) ") ?? "iCloud Drive \(Image(systemName: "arrow.right")) \(Bundle.main.bundleIdentifier ?? "Converted Videos")")
                         .bold()
                         .foregroundColor(Color("AccentColor"))
                         .lineLimit(nil)
@@ -37,6 +36,7 @@ public struct FileExporterButton: View {
                 .padding()
             }
         )
+        .buttonStyle(PlainButtonStyle())
         .padding()
         .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.directory]) { result in
             do {

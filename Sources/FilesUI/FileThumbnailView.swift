@@ -39,10 +39,10 @@ public class ThumbnailGenerator: ObservableObject {
 
 public struct FileThumbnail: View {
     
-    @Binding public var url: URL?
+    public var url: URL
     
-    public init(url: Binding<URL?>) {
-        self._url = url
+    public init(url: URL) {
+        self.url = url
     }
     
     @StateObject private var generator = ThumbnailGenerator()
@@ -68,15 +68,9 @@ public struct FileThumbnail: View {
             }
         }
         .onAppear {
-            guard let url = url else {
-                return
-            }
             generator.generate(fileAt: url)
         }
         .onChange(of: url) { newUrl in
-            guard let newUrl = newUrl else {
-                return
-            }
             generator.generate(fileAt: newUrl)
         }
     }
@@ -84,6 +78,6 @@ public struct FileThumbnail: View {
 
 struct FileThumbnail_Previews: PreviewProvider {
     static var previews: some View {
-        FileThumbnail(url: .constant(nil))
+        FileThumbnail(url: URL(fileURLWithPath: "~/Downloads/egg.png"))
     }
 }

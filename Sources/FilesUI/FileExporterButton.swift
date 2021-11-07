@@ -36,7 +36,7 @@ public struct FileExporterButton: View {
                 .padding()
             }
         )
-        .buttonStyle(PlainButtonStyle())
+        .buttonStyle(LinkButtonStyle())
         .padding()
         .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.directory]) { result in
             do {

@@ -25,13 +25,10 @@ public struct FileExporterButton: View {
         Button(
             action: { showingFileExporter.toggle() },
             label: {
-                LazyVGrid(columns: [.init(.adaptive(minimum: 20, maximum: 320), spacing: 8, alignment: .center)], alignment: .center, spacing: 8) {
-                    ForEach(outputDirectory.pathComponents, id: \.self) { pathComponent in
-                        Text(pathComponent).bold()
-                        Image(systemName: "arrow.right")
-                    }
-                    .foregroundColor(Color("AccentColor"))
-                    .lineLimit(nil)
+                HStack {
+                    Label(outputDirectory.lastPathComponent, systemImage: "folder")
+                        .foregroundColor(Color.accentColor)
+                        .lineLimit(nil)
                     Spacer()
                 }
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))

@@ -25,14 +25,18 @@ public struct DirectoryPicker: View {
         Button(
             action: { showingFileExporter.toggle() },
             label: {
-                Label(directory.lastPathComponent, systemImage: "folder")
-                    .foregroundColor(Color.accentColor)
-                    .lineLimit(nil)
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .background(Color("BackgroundColor").opacity(0.5))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
-                    .padding()
+                HStack {
+                    Spacer()
+                    Label(directory.lastPathComponent, systemImage: "folder")
+                        .foregroundColor(Color.accentColor)
+                        .lineLimit(nil)
+                    Spacer()
+                }
+                .padding()
+                .background(.ultraThinMaterial)
+                .background(Color("BackgroundColor").opacity(0.5))
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
+                .padding()
             }
         )
         .buttonStyle(LinkButtonStyle())

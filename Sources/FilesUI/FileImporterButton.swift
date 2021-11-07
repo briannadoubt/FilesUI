@@ -10,32 +10,12 @@ import UniformTypeIdentifiers
 
 public struct FileImporterButton: View {
     
-    public var label: String
+    public var label: String?
     public var types: [UTType]
     public var inputFile: (_ url: URL) -> ()
     
     public init(_ allowedTypes: [UTType], label: String? = nil, inputFile: @escaping (_ url: URL) -> ()) {
-        var actionText: String {
-            #if os(iOS)
-            "Tap"
-            #elseif os(macOS)
-            "Click"
-            #endif
-        }
-        
-        var actionImage: String {
-            #if os(iOS)
-            "hand.tap"
-            #elseif os(macOS)
-            "cursorarrow.click"
-            #endif
-        }
-        
-        if let label = label {
-            self.label = label
-        } else {
-            self.label = "Drop \(Image(systemName: "arrow.uturn.down")) / \(actionText) \(Image(systemName: actionImage))"
-        }
+        self.label = label
         
         self.types = allowedTypes
         self.inputFile = inputFile
@@ -43,6 +23,22 @@ public struct FileImporterButton: View {
     
     @State private var showingFileImporter = false
     @State private var hovored: Bool = false
+    
+    var actionText: String {
+        #if os(iOS)
+        "Tap"
+        #elseif os(macOS)
+        "Click"
+        #endif
+    }
+    
+    var actionImage: String {
+        #if os(iOS)
+        "hand.tap"
+        #elseif os(macOS)
+        "cursorarrow.click"
+        #endif
+    }
     
     public var body: some View {
         Button(
@@ -55,7 +51,7 @@ public struct FileImporterButton: View {
                         .transition(.opacity)
 
                     VStack {
-                        Text(label)
+                        Text(label ?? "Drop \(Image(systemName: "arrow.uturn.down")) / \(actionText) \(Image(systemName: actionImage))")
                             .bold()
                             .foregroundColor(hovored ? .white : Color("AccentColor"))
                             .lineLimit(nil)

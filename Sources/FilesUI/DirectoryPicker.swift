@@ -36,10 +36,10 @@ public struct DirectoryPicker: View {
                 .background(.ultraThinMaterial)
                 .background(Color("BackgroundColor").opacity(0.5))
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
-                .padding()
             }
         )
         .buttonStyle(LinkButtonStyle())
+        .frame(minWidth: 150)
         .padding()
         .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.directory]) { result in
             do {

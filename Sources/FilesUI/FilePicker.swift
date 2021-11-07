@@ -8,7 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-public struct FileImporterButton: View {
+public struct FilePicker: View {
     
     public var label: String?
     public var types: [UTType]
@@ -98,8 +98,8 @@ public struct FileImporterButton: View {
     }
 }
 
-struct FileImporterButton_Previews: PreviewProvider {
+struct FilePicker_Previews: PreviewProvider {
     static var previews: some View {
-        FileImporterButton([.fileURL], inputFile: { url in print(url) })
+        FilePicker([.fileURL], inputFile: { url in print(url) })
     }
 }

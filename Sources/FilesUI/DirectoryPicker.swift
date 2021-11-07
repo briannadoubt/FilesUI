@@ -8,14 +8,14 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-public struct FileExporterButton: View {
+public struct DirectoryPicker: View {
     
-    @Binding public var outputDirectory: URL
+    @Binding public var directory: URL
     
     @State var stale = false
     
-    public init(outputDirectory: Binding<URL>) {
-        self._outputDirectory = outputDirectory
+    public init(directory: Binding<URL>) {
+        self._directory = directory
     }
     
     @State private var showingFileExporter = false
@@ -25,7 +25,7 @@ public struct FileExporterButton: View {
         Button(
             action: { showingFileExporter.toggle() },
             label: {
-                Label(outputDirectory.lastPathComponent, systemImage: "folder")
+                Label(directory.lastPathComponent, systemImage: "folder")
                     .foregroundColor(Color.accentColor)
                     .lineLimit(nil)
                     .padding()
@@ -42,7 +42,7 @@ public struct FileExporterButton: View {
                 let newUrl = try result.get()
                 try withAnimation {
                     output = try newUrl.bookmarkData(options: .withSecurityScope)
-                    self.outputDirectory = try URL(resolvingBookmarkData: output, options: .withSecurityScope, bookmarkDataIsStale: &stale)
+                    self.directory = try URL(resolvingBookmarkData: output, options: .withSecurityScope, bookmarkDataIsStale: &stale)
                 }
             } catch {
                 fatalError(error.localizedDescription)
@@ -51,8 +51,8 @@ public struct FileExporterButton: View {
     }
 }
 
-struct FileExporterButton_Previews: PreviewProvider {
+struct DirectoryPicker_Previews: PreviewProvider {
     static var previews: some View {
-        FileExporterButton(outputDirectory: .constant(URL(fileURLWithPath: "~/dev/")))
+        DirectoryPicker(directory: .constant(URL(fileURLWithPath: "~/dev/")))
     }
 }

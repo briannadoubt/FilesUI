@@ -37,7 +37,7 @@ public class ThumbnailGenerator: ObservableObject {
     }
 }
 
-public struct FileThumbnail: View {
+public struct Thumbnail: View {
     
     public var url: URL
     
@@ -76,8 +76,8 @@ public struct FileThumbnail: View {
     }
 }
 
-struct FileThumbnail_Previews: PreviewProvider {
+struct Thumbnail_Previews: PreviewProvider {
     static var previews: some View {
-        FileThumbnail(url: URL(fileURLWithPath: "~/Downloads/egg.png"))
+        Thumbnail(url: URL(fileURLWithPath: "~/Downloads/egg.png"))
     }
 }

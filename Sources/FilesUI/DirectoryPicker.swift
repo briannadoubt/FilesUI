@@ -38,15 +38,24 @@ public struct DirectoryPicker: View {
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
             }
         )
+        #if os(macOS)
         .buttonStyle(LinkButtonStyle())
+        #elseif os(iOS)
+        .buttonStyle(PlainButtonStyle())
+        #endif
         .frame(minWidth: 150)
         .padding()
         .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.directory]) { result in
             do {
                 let newUrl = try result.get()
                 try withAnimation {
+                    #if os(macOS)
                     output = try newUrl.bookmarkData(options: .withSecurityScope)
                     self.directory = try URL(resolvingBookmarkData: output, options: .withSecurityScope, bookmarkDataIsStale: &stale)
+                    #elseif os(iOS)
+                    output = try newUrl.bookmarkData()
+                    self.directory = try URL(resolvingBookmarkData: output, bookmarkDataIsStale: &stale)
+                    #endif
                 }
             } catch {
                 fatalError(error.localizedDescription)

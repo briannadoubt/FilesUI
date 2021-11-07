@@ -26,7 +26,7 @@ public struct FileExporterButton: View {
             action: { showingFileExporter.toggle() },
             label: {
                 HStack {
-                    Text(outputDirectory.absoluteString.replacingOccurrences(of: "/", with: " \(Image(systemName: "arrow.right")) "))
+                    Text(outputDirectory.path.replacingOccurrences(of: "/", with: " \(Image(systemName: "arrow.right")) "))
                     .bold()
                     .foregroundColor(Color("AccentColor"))
                     .lineLimit(nil)
@@ -54,6 +54,6 @@ public struct FileExporterButton: View {
 
 struct FileExporterButton_Previews: PreviewProvider {
     static var previews: some View {
-        FileExporterButton(outputDirectory: .constant(URL(fileURLWithPath: "files:///Users/bri/dev/")))
+        FileExporterButton(outputDirectory: .constant(URL(fileURLWithPath: "~/dev/")))
     }
 }

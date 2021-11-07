@@ -56,8 +56,11 @@ public struct FileImporterButton: View {
                     .font(.largeTitle)
                     .padding()
                 }
+                .background(.ultraThinMaterial)
+                .cornerRadius(10)
             }
         )
+        .buttonStyle(PlainButtonStyle())
         .padding()
         .fileImporter(isPresented: $showingFileImporter, allowedContentTypes: types) { result in
             do {

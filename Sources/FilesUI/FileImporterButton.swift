@@ -44,20 +44,20 @@ public struct FileImporterButton: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(hovored ? Color("AccentColor") : Color.clear)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(hovored ? Color.primary : Color("AccentColor"), lineWidth: 3))
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(hovored ? Color.white : Color("AccentColor"), lineWidth: 3))
                         .transition(.opacity)
 
                     VStack {
                         Text("\(Image(systemName: "arrow.uturn.down")) / \(Image(systemName: actionImage))")
                             .bold()
-                            .foregroundColor(hovored ? Color("AccentColor") : Color("SecondaryColor"))
+                            .foregroundColor(hovored ? Color("AccentColor") : .white)
                             .lineLimit(nil)
                     }
                     .font(.largeTitle)
                     .padding()
                 }
                 .background(.ultraThinMaterial)
-                .background(Color.accentColor.opacity(0.5))
+                .background(hovored ? Color("AccentColor") : Color("BackgroundColor").opacity(0.5))
                 .cornerRadius(10)
             }
         )

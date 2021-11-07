@@ -26,8 +26,10 @@ public struct FileExporterButton: View {
             action: { showingFileExporter.toggle() },
             label: {
                 HStack {
-                    Text(outputDirectory.path.replacingOccurrences(of: "/", with: " \(Image(systemName: "arrow.right")) "))
-                    .bold()
+                    ForEach(outputDirectory.pathComponents, id: \.self) { pathComponent in
+                        Text(pathComponent).bold()
+                        Image(systemName: "arrow.right")
+                    }
                     .foregroundColor(Color("AccentColor"))
                     .lineLimit(nil)
                     Spacer()

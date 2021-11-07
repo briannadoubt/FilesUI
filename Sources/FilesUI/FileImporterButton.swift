@@ -51,11 +51,14 @@ public struct FileImporterButton: View {
                         .transition(.opacity)
 
                     VStack {
-                        Text(label ?? "Drop \(Image(systemName: "arrow.uturn.down")) / \(actionText) \(Image(systemName: actionImage))")
-                            .bold()
-                            .foregroundColor(hovored ? .white : Color("AccentColor"))
-                            .lineLimit(nil)
+                        if let label = label {
+                            Text(label).bold()
+                        } else {
+                            Text("Drop \(Image(systemName: "arrow.uturn.down")) / \(actionText) \(Image(systemName: actionImage))").bold()
+                        }
                     }
+                    .foregroundColor(hovored ? .white : Color("AccentColor"))
+                    .lineLimit(nil)
                     .font(.largeTitle)
                     .padding()
                 }

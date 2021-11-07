@@ -48,9 +48,9 @@ public struct FileImporterButton: View {
                         .transition(.opacity)
 
                     VStack {
-                        Text("Drop \(Image(systemName: "arrow.uturn.down")) / \(actionText) \(Image(systemName: actionImage))")
+                        Text("\(Image(systemName: "arrow.uturn.down")) / \(Image(systemName: actionImage))")
                             .bold()
-                            .foregroundColor(hovored ? Color("AccentColor") : .primary)
+                            .foregroundColor(hovored ? Color("AccentColor") : Color("SecondaryColor"))
                             .lineLimit(nil)
                     }
                     .font(.largeTitle)

@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 
 final class FileExporterButtonTests: XCTestCase {
     
-    @State var url: URL?
+    @State var url: URL = URL(fileURLWithPath: "~/Downloads", isDirectory: true)
     
     func test_buttonIsInitialized() throws {
         let button = FileExporterButton(outputDirectory: $url)

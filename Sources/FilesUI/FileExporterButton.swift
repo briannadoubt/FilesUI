@@ -10,11 +10,11 @@ import UniformTypeIdentifiers
 
 public struct FileExporterButton: View {
     
-    @Binding public var outputDirectory: URL?
+    @Binding public var outputDirectory: URL
     
     @State var stale = false
     
-    public init(outputDirectory: Binding<URL?>) {
+    public init(outputDirectory: Binding<URL>) {
         self._outputDirectory = outputDirectory
     }
     
@@ -26,10 +26,10 @@ public struct FileExporterButton: View {
             action: { showingFileExporter.toggle() },
             label: {
                 HStack {
-                    Text(outputDirectory?.absoluteString.replacingOccurrences(of: "/", with: " \(Image(systemName: "arrow.right")) ") ?? "iCloud Drive \(Image(systemName: "arrow.right")) \(Bundle.main.bundleIdentifier ?? "Converted Videos")")
-                        .bold()
-                        .foregroundColor(Color("AccentColor"))
-                        .lineLimit(nil)
+                    Text(outputDirectory.absoluteString.replacingOccurrences(of: "/", with: " \(Image(systemName: "arrow.right")) "))
+                    .bold()
+                    .foregroundColor(Color("AccentColor"))
+                    .lineLimit(nil)
                     Spacer()
                 }
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))

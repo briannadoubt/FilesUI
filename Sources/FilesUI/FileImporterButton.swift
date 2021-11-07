@@ -57,6 +57,7 @@ public struct FileImporterButton: View {
                     .padding()
                 }
                 .background(.ultraThinMaterial)
+                .background(Color.accentColor.opacity(0.5))
                 .cornerRadius(10)
             }
         )

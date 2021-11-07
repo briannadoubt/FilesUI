@@ -25,14 +25,14 @@ public struct FileExporterButton: View {
         Button(
             action: { showingFileExporter.toggle() },
             label: {
-                HStack {
-                    Label(outputDirectory.lastPathComponent, systemImage: "folder")
-                        .foregroundColor(Color.accentColor)
-                        .lineLimit(nil)
-                    Spacer()
-                }
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
-                .padding()
+                Label(outputDirectory.lastPathComponent, systemImage: "folder")
+                    .foregroundColor(Color.accentColor)
+                    .lineLimit(nil)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .background(Color("BackgroundColor").opacity(0.5))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
+                    .padding()
             }
         )
         .buttonStyle(LinkButtonStyle())

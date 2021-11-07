@@ -25,7 +25,7 @@ public struct FileExporterButton: View {
         Button(
             action: { showingFileExporter.toggle() },
             label: {
-                HStack {
+                LazyVGrid(columns: [.init(.adaptive(minimum: 20, maximum: 320), spacing: 8, alignment: .center)], alignment: .center, spacing: 8) {
                     ForEach(outputDirectory.pathComponents, id: \.self) { pathComponent in
                         Text(pathComponent).bold()
                         Image(systemName: "arrow.right")

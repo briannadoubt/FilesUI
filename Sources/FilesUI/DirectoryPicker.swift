@@ -45,7 +45,7 @@ public struct DirectoryPicker: View {
         #endif
         .frame(minWidth: 150)
         .padding()
-        .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.directory]) { result in
+        .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.folder]) { result in
             do {
                 let newUrl = try result.get()
                 try withAnimation {

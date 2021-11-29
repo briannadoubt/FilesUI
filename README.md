@@ -5,14 +5,14 @@ A few drop-in SwiftUI components for easily importing and thumb-nailing files
 
 ### 1. Import Files
 To import files you can use the `FileImporterButton`:
-```
+```swift
 FileImporterButton(types: [.fileURL], url: { url in print(url) })
 ```
 This button also supports drag and drop for the specified `UTType`s
 
 ### 2. Display thumbnail
 To display a thumbnail of the imported file you can use `FileThumbnailView` with `FileImporterButton`:
-```
+```swift
 struct MyView: View {
     @State var importedFileUrl: URL?
     

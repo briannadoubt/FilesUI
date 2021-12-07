@@ -10,41 +10,57 @@ import UniformTypeIdentifiers
 
 public struct DirectoryPicker: View {
     
-    @Binding public var directory: URL
-    
-    @State var stale = false
-    
-    public init(directory: Binding<URL>) {
+    public init(
+        directory: Binding<URL?>,
+        borderWidth: CGFloat = 3,
+        borderCornerRadius: CGFloat = 10,
+        borderColor: Color = Color("AccentColor"),
+        buttonBackgroundColor: Color = Color("DirectoryPickerBackgroundColor")
+    ) {
         self._directory = directory
+        self.borderWidth = borderWidth
+        self.borderCornerRadius = borderCornerRadius
+        self.borderColor = borderColor
+        self.buttonBackgroundColor = buttonBackgroundColor
     }
     
-    @State private var showingFileExporter = false
-    @AppStorage("outputDirectory") private var output: Data = Data()
+    fileprivate let borderWidth: CGFloat
+    fileprivate let borderCornerRadius: CGFloat
+    fileprivate let borderColor: Color
+    fileprivate let buttonBackgroundColor: Color
+    
+    @Binding fileprivate var directory: URL?
+    @State fileprivate var stale = false
+    @State fileprivate var showingFileExporter = false
+    @AppStorage("outputDirectory") fileprivate var output: Data = Data()
     
     public var body: some View {
         Button(
             action: { showingFileExporter.toggle() },
             label: {
-                HStack {
-                    Spacer()
-                    Label(directory.lastPathComponent, systemImage: "folder")
-                        .foregroundColor(Color.accentColor)
-                        .lineLimit(nil)
-                    Spacer()
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10).stroke(borderColor, lineWidth: borderWidth)
+                        .background(.ultraThinMaterial)
+                        .background(Color("BackgroundColor").opacity(0.5))
+                    
+                    HStack {
+                        Group {
+                            Text(directory?.lastPathComponent ?? "Choose Destination...").bold()
+                            + Text(" \(Image(systemName: "folder"))").bold()
+                        }
+                        .padding()
+                    }
+                    .foregroundColor(Color.accentColor)
+                    .font(.largeTitle)
+                    .lineLimit(nil)
                 }
-                .padding()
-                .background(.ultraThinMaterial)
-                .background(Color("BackgroundColor").opacity(0.5))
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
             }
         )
         #if os(macOS)
-        .buttonStyle(LinkButtonStyle())
+        .buttonStyle(PlainButtonStyle())
         #elseif os(iOS)
         .buttonStyle(PlainButtonStyle())
         #endif
-        .frame(minWidth: 150)
-        .padding()
         .fileImporter(isPresented: $showingFileExporter, allowedContentTypes: [.folder]) { result in
             do {
                 let newUrl = try result.get()
@@ -58,9 +74,11 @@ public struct DirectoryPicker: View {
                     #endif
                 }
             } catch {
-                fatalError(error.localizedDescription)
+                assertionFailure()
             }
         }
+        .tag("documentPicker")
+        .accessibility(label: Text("Document Picker"))
     }
 }
 

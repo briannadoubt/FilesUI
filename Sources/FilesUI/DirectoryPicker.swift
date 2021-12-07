@@ -5,9 +5,6 @@
 //  Created by Bri on 11/4/21.
 //
 
-import SwiftUI
-import UniformTypeIdentifiers
-
 public struct DirectoryPicker: View {
     
     public init(

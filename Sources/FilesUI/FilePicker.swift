@@ -5,9 +5,6 @@
 //  Created by Bri on 11/1/21.
 //
 
-import SwiftUI
-import UniformTypeIdentifiers
-
 public struct FilePicker: View {
     
     public var label: String?

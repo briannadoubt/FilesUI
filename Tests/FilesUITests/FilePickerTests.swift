@@ -2,14 +2,14 @@ import XCTest
 @testable import FilesUI
 import UniformTypeIdentifiers
 
-final class FileImporterButtonTests: XCTestCase {
+final class FilePickerTests: XCTestCase {
     
-    var url: URL?
+    @State var file: URL?
     let types = [UTType.fileURL]
     
     func test_buttonIsInitialized() throws {
-        let button = FilePicker(types, inputFile: { url in self.url = url })
+        let button = FilePicker(types, file: $file)
         XCTAssertEqual(button.types, types)
-        XCTAssertEqual(url, nil)
+        XCTAssertEqual(file, nil)
     }
 }

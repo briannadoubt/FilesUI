@@ -10,7 +10,13 @@ let package = Package(
             name: "FilesUI",
             targets: ["FilesUI"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(
+            name: "ViewInspector",
+            url: "https://github.com/nalexn/ViewInspector.git",
+            .upToNextMajor(from: "0.9.0")
+        )
+    ],
     targets: [
         .target(
             name: "FilesUI",
@@ -19,6 +25,6 @@ let package = Package(
         ),
         .testTarget(
             name: "FilesUITests",
-            dependencies: ["FilesUI"]),
+            dependencies: ["FilesUI", "ViewInspector"]),
     ]
 )

@@ -5,7 +5,6 @@
 //  Created by Bri on 10/30/21.
 //
 
-import SwiftUI
 import QuickLookThumbnailing
 
 public class ThumbnailGenerator: ObservableObject {

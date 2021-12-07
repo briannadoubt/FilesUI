@@ -12,13 +12,16 @@ public struct FilePicker: View {
     
     public var label: String?
     public var types: [UTType]
-    public var inputFile: (_ url: URL) -> ()
+    @Binding public var inputFile: URL?
+    public var cornerRadius: CGFloat = 10
     
-    public init(_ allowedTypes: [UTType], label: String? = nil, inputFile: @escaping (_ url: URL) -> ()) {
+    public init(_ allowedTypes: [UTType], file: Binding<URL?>, label: String? = nil, cornerRadius: CGFloat? = nil) {
         self.label = label
-        
         self.types = allowedTypes
-        self.inputFile = inputFile
+        self._inputFile = file
+        if let cornerRadius = cornerRadius {
+            self.cornerRadius = cornerRadius
+        }
     }
     
     @State private var showingFileImporter = false
@@ -45,9 +48,9 @@ public struct FilePicker: View {
             action: { showingFileImporter.toggle() },
             label: {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: cornerRadius)
                         .fill(hovored ? Color("AccentColor") : Color.clear)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color("AccentColor"), lineWidth: 3))
+                        .overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(Color("AccentColor"), lineWidth: 3).cornerRadius(cornerRadius))
                         .transition(.opacity)
 
                     VStack {
@@ -64,7 +67,7 @@ public struct FilePicker: View {
                 }
                 .background(.ultraThinMaterial)
                 .background(hovored ? Color("AccentColor") : Color("BackgroundColor").opacity(0.5))
-                .cornerRadius(10)
+                .cornerRadius(cornerRadius)
             }
         )
         .buttonStyle(PlainButtonStyle())
@@ -73,7 +76,7 @@ public struct FilePicker: View {
             do {
                 let newUrl = try result.get()
                 withAnimation {
-                    inputFile(newUrl)
+                    inputFile = newUrl
                 }
             } catch {
                 fatalError(error.localizedDescription)
@@ -88,18 +91,20 @@ public struct FilePicker: View {
                     }
                     if let newUrl = newUrl {
                         withAnimation {
-                            inputFile(newUrl)
+                            inputFile = newUrl
                         }
                     }
                 }
             }
             return true
         }
+        .tag("filePicker")
+        .accessibility(label: Text("File Picker"))
     }
 }
 
 struct FilePicker_Previews: PreviewProvider {
     static var previews: some View {
-        FilePicker([.fileURL], inputFile: { url in print(url) })
+        FilePicker([.fileURL], file: .constant(URL(string: "")))
     }
 }
